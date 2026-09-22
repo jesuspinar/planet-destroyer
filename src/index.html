@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101114">
+  <meta name="description"
+    content="Destroy the planets. Protect Earth. A vertical space arcade game with alien power-ups and an ever-faster orbit.">
+  <title>Planet Destroyer — Space Arcade</title>
+  <link
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23080b0d'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='5' fill='none' stroke='%23cbfa87' transform='rotate(-30 16 16)'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23cbfa87'/%3E%3C/svg%3E"
+    rel="icon" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Planet Destroyer home">
+        <svg viewBox="0 0 42 42" fill="none" aria-hidden="true">
+          <circle cx="21" cy="21" r="10" fill="currentColor" />
+          <ellipse cx="21" cy="21" rx="20" ry="6" stroke="currentColor" stroke-width="2"
+            transform="rotate(-35 21 21)" />
+        </svg>
+        <span>PLANET
+          <span class="brand-sub">DESTROYER</span>
+        </span>
+      </a>
+      <span class="header-caption">
+        A LITTLE CHAOS IN THE COSMOS.
+      </span>
+      <div class="header-controls">
+        <button id="sound" class="icon-button" aria-label="Turn sound on" aria-pressed="false">
+          <span id="sound-icon">♫</span>
+          <span id="sound-label">Sound off</span>
+        </button>
+        <button id="help" class="icon-button" aria-label="How to play">?</button>
+      </div>
+    </header>
+    <main>
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">THE SOLAR SYSTEM IS YOUR PLAYGROUND</div>
+          <h1>Make a cosmic mess<span>.</span></h1>
+        </div>
+        <div class="arcade-tag"><span></span> ARCADE MODE</div>
+      </div>
+      <div class="game-layout">
+        <section id="game-shell" class="game-shell" aria-label="Planet Destroyer game">
+          <div class="hud">
+            <div class="score-block">
+              <span class="label">SCORE</span>
+              <strong id="score">0000</strong>
+            </div>
+            <div class="life-block">
+              <span class="label">LIVES <span id="lives-count">5 / 5</span></span>
+              <div id="hearts" aria-label="5 lives">♥ ♥ ♥ ♥ ♥</div>
+            </div>
+            <div class="speed-block">
+              <span class="label">SPEED</span>
+              <strong id="speed">1.0<span>×</span></strong>
+            </div>
+            <button id="pause" class="pause-button" aria-label="Pause game" disabled>Ⅱ</button>
+          </div>
+          <div id="arena" class="arena" tabindex="0"
+            aria-label="Game area. Click or tap a planet to destroy it. Avoid Earth. Press P to pause.">
+            <div class="sector-label">
+              <b id="sector" style="font-weight:inherit">SECTOR 001</b> <span>↓ INCOMING</span>
+            </div>
+            <div id="canvas-host"></div>
+            <div id="floating"></div>
+            <div id="bonus-banner" hidden>✦ DOUBLE POINTS <b id="bonus-time">10.0s</b></div>
+            <div id="notice" role="status"></div>
+            <div id="overlay" class="overlay">
+              <div class="intro-kicker"><span>✦</span> AIM. CLICK. OBLITERATE.</div>
+              <h2 id="overlay-title">PLANET<br><em>DESTROYER</em></h2>
+              <p id="overlay-description">The universe is falling.<br>Keep your aim sharp. Keep Earth safe.</p>
+              <button id="start" class="primary-button">LET’S DESTROY <span>↗</span></button>
+              <span class="start-hint" id="start-hint">CLICK OR TAP TO SHOOT</span>
+            </div>
+            <div class="danger-line"><span>DO NOT LET THEM PAST</span></div>
+            <div id="damage" class="damage"></div>
+          </div>
+          <div class="game-bottom">
+            <span>
+              <i class="live-dot"></i>
+              <span id="game-status">AWAITING LAUNCH</span>
+            </span>
+            <span class="keyboard-hint">
+              <kbd>P</kbd> pause <span class="divider">/</span>
+              <kbd>M</kbd> sound <span class="divider">/</span>
+              <kbd>F</kbd> fullscreen
+            </span>
+            <button id="fullscreen" class="fullscreen-button" aria-label="Enter fullscreen" aria-pressed="false"
+              title="Fullscreen (F)">
+              <span aria-hidden="true">⛶</span>
+              <span id="fullscreen-label">Fullscreen</span>
+            </button>
+          </div>
+        </section>
+        <aside>
+          <section class="brief">
+            <div class="section-label">
+              <span>01 / MISSION BRIEF</span><span>↗</span>
+            </div>
+            <h2>Destroy everything.<br><span>Except home.</span></h2>
+            <p>Click the falling planets to score points. You have five lives. Make them count.</p>
+            <div class="rule">
+              <span class="rule-icon">⌖</span>
+              <div>
+                <strong>Good aim pays off</strong>
+                <p>Destroy planets to earn <b>points.</b></p>
+              </div>
+            </div>
+            <div class="rule">
+              <span class="rule-icon warning">♡</span>
+              <div>
+                <strong>Earth is off limits</strong>
+                <p>Shoot Earth and lose <b>1 life.</b> Let it pass safely.</p>
+              </div>
+            </div>
+            <div class="rule">
+              <span class="rule-icon">↓</span>
+              <div>
+                <strong>Don’t miss your shot</strong>
+                <p>Every <b>3 missed planets</b> costs you 1 life.</p>
+              </div>
+            </div>
+            <div class="miss-tracker">
+              <span>MISSED PLANETS</span>
+              <div id="miss-dots" aria-label="0 of 3 planets missed">
+                <i></i><i></i><i></i>
+              </div>
+              <b id="miss-count">0 / 3</b>
+            </div>
+          </section>
+          <section class="bonus-card">
+            <div class="bonus-top">
+              <span class="alien-icon" aria-hidden="true">👾</span>
+              <span class="pill">POWER-UP</span>
+            </div>
+            <h3>A friendly invasion.</h3>
+            <p>Catch the alien to unlock <strong>double points for 10 seconds.</strong></p>
+            <div class="bonus-bottom">
+              <span id="bonus-label">KEEP AN EYE OUT</span><b>2×</b>
+            </div>
+            <div class="bonus-track">
+              <i id="bonus-progress"></i>
+            </div>
+          </section>
+          <section class="speed-note"><span>↗</span>
+            <p>New sector every 50 points.<br><strong>+ More planet drops.</strong></p>
+          </section>
+        </aside>
+      </div>
+      <footer>
+        <span>PROTECT OUR BLUE DOT.</span>
+        <span>
+          VIBE CODED WITH LOVE
+          <span class="footer-star">✦</span>
+        </span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog id="help-dialog">
+    <button id="close-help" class="dialog-close" aria-label="Close instructions">×</button>
+    <span class="eyebrow">YOUR FLIGHT MANUAL</span>
+    <h2>Small planet.<br>Big responsibility.</h2>
+    <p>
+      Click or tap Mercury, Venus, Mars, Jupiter, Saturn, Uranus, or Neptune for <b>10 points</b>. Shooting Earth costs
+      one of your five lives, ends double points, and resets missed planets to zero.
+    </p>
+    <p>
+      Every three missed target planets costs one life. Earth and aliens can pass safely. Shoot an alien for <b>double
+        points for 10 seconds</b>; catching another refreshes the timer.
+    </p>
+    <p>
+      Advance to a new sector every <b>50 points</b>: speed increases by <b>0.4×</b> and planet drops increase to keep
+      pace. Press <b>P</b> to pause, <b>M</b> for sound, and <b>F</b> for fullscreen. On mobile, tap Fullscreen below
+      the game; tap Exit fullscreen to return.
+    </p>
+    <button id="help-ready" class="primary-button">GOT IT <span>↗</span></button>
+  </dialog>
+  <script type="module" src="game.js"></script>
+</body>
+
+</html>
