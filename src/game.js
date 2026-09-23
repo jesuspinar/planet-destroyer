@@ -505,7 +505,7 @@ function pause() {
   state.status = 'paused';
   $('overlay-title').innerHTML = 'COSMIC<br><em>TIME-OUT</em>';
   $('overlay-description').innerHTML = 'Take a breath.<br>Your universe can wait.';
-  $('start').innerHTML = 'RESUME MISSION <span aria-hidden="true"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M3.5 20.5L17 7M9 7H17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg></span></span> ;';
+  $('start').innerHTML = 'RESUME MISSION <span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M3.5 20.5L17 7M9 7H17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg></span>';
   $('start-hint').textContent = 'PRESS P TO RESUME';
   $('overlay').hidden = false;
   updateUI()
@@ -524,7 +524,7 @@ function end() {
   state.status = 'over';
   $('overlay-title').innerHTML = 'THAT WAS<br><em>COSMIC.</em>';
   $('overlay-description').innerHTML = `<strong>${state.score} POINTS</strong> · ${state.destroyed} PLANETS DESTROYED<br>The universe is ready for round two.`;
-  $('start').innerHTML = 'PLAY AGAIN <span aria-hidden="true"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M3.5 20.5L17 7M9 7H17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg></span></span>';
+  $('start').innerHTML = 'PLAY AGAIN <span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M3.5 20.5L17 7M9 7H17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg></span>';
   $('start-hint').textContent = 'FIVE FRESH LIVES. ONE MORE MISSION.';
   $('overlay').hidden = false;
   updateUI();
